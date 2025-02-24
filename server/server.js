@@ -1,19 +1,19 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const fs = require('fs');
-const bodyParser = require('body-parser');
-const coBody = require('co-body');
+const express = require('express')
+const app = express()
+const path = require('path')
+const fs = require('fs')
+const bodyParser = require('body-parser')
+const coBody = require('co-body')
 // 创建静态服务
-const serveStatic = require('serve-static');
-const rootPath = path.join(__dirname, 'dist');
-app.use(serveStatic(rootPath));
+const serveStatic = require('serve-static')
+const rootPath = path.join(__dirname, 'dist')
+app.use(serveStatic(rootPath))
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
 
 app.all('*', function (res, req, next) {
-  req.header('Access-Control-Allow-Origin', '*');
+  req.header('Access-Control-Allow-Origin', '*')
   req.header('Access-Control-Allow-Headers', 'Content-Type');
   req.header('Access-Control-Allow-Methods', '*');
   req.header('Content-Type', 'application/json;charset=utf-8');
@@ -21,13 +21,13 @@ app.all('*', function (res, req, next) {
 });
 
 // 存储性能数据
-let performanceList = [];
+const performanceList = [];
 // 存储错误数据
-let errorList = [];
+const errorList = [];
 // 存储录屏数据
-let recordScreenList = [];
+const recordScreenList = [];
 // 存储白屏检测数据
-let whiteScreenList = [];
+const whiteScreenList = [];
 
 // 获取js.map源码文件
 app.get('/getmap', (req, res) => {
